@@ -81,13 +81,15 @@ public class StudentManager {
         }
 
         Student student = new Student(id, name, className, gpa);
-        if (studentDao.create(student)) {
+        try{
+            studentDao.create(student);
             JOptionPane.showMessageDialog(
                     frame,
                     "Thêm sinh viên thành công!"
             );
             loadStudent();
-        } else {
+        }
+        catch (RuntimeException e){
             JOptionPane.showMessageDialog(
                     frame,
                     "Mã sinh viên đã tồn tại!",
@@ -95,6 +97,7 @@ public class StudentManager {
                     JOptionPane.ERROR_MESSAGE
             );
         }
+
     }
 
     private void deleteStudent() {
@@ -134,19 +137,25 @@ public class StudentManager {
         try {
             gpa = Float.parseFloat(gpaText);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(frame, "GPA phải là một số thực!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(frame,
+                    "GPA phải là một số thực!",
+                    "Thông báo",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        studentDao.delete(selectedId);
 
         Student updatedStudent = new Student(id, name, className, gpa);
-        if (studentDao.create(updatedStudent)) {
-            JOptionPane.showMessageDialog(frame, "Cập nhật sinh viên thành công!");
+        try {
+            studentDao.update(selectedId, updatedStudent);
             loadStudent();
-        } else {
             JOptionPane.showMessageDialog(frame,
-                    "Cập nhật không thành công!",
+                    "Cập nhật sinh viên thành công!"
+                    );
+        }
+        catch (RuntimeException e){
+            JOptionPane.showMessageDialog(frame,
+                    "Cập nhật sinh viên thất bại: Mã sinh viên đã tồn tại!",
                     "Lỗi",
                     JOptionPane.ERROR_MESSAGE);
         }

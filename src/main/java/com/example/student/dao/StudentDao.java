@@ -8,5 +8,5 @@ public interface StudentDao {
     List<Student> getAll();
     boolean create(Student student);
     void delete(String ma_sv);
-
+    void update(String ma_sv, Student student);
 }
