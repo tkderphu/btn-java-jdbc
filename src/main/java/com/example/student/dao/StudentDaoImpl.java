@@ -23,7 +23,7 @@ public class StudentDaoImpl implements StudentDao{
                 students.add(new Student(
                         resultSet.getString(1),
                         resultSet.getString(2),
-                        resultSet.getString(1),
+                        resultSet.getString(3),
                         resultSet.getFloat(4)
                 ));
             }
@@ -55,6 +55,23 @@ public class StudentDaoImpl implements StudentDao{
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, ma_sv);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void update(String ma_sv, Student student) {
+        String sql = "UPDATE sinhVien SET ma_sv = ?, ho_ten =?, class_name = ?, gpa = ? WHERE ma_sv = ?";
+
+        try{
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, student.getId());
+            statement.setString(2, student.getName());
+            statement.setString(3, student.getClassId());
+            statement.setFloat(4, student.getGpa());
+            statement.setString(5, ma_sv);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
