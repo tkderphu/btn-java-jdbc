@@ -23,6 +23,8 @@ public class StudentManager {
         connection = JdbcConnection.getInstance().getConnection();
         studentDao = new StudentDaoImpl();
         frame = new Frame();
+
+        tableModel = frame.getTableModel();
         loadStudent();
         frame.getTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
