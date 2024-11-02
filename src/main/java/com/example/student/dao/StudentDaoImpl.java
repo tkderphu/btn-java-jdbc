@@ -23,7 +23,7 @@ public class StudentDaoImpl implements StudentDao{
                 students.add(new Student(
                         resultSet.getString(1),
                         resultSet.getString(2),
-                        resultSet.getString(1),
+                        resultSet.getString(3),
                         resultSet.getFloat(4)
                 ));
             }

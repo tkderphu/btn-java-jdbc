@@ -37,7 +37,7 @@ public class StudentManager {
         frame.getBtnCapNhat().addActionListener(e -> updateStudent());
         frame.getBtnXoa().addActionListener(e -> deleteStudent());
         frame.getBtnReset().addActionListener(e -> resetFields());
-        frame.getBtnThem().addActionListener(e -> frame.getBtnThem());
+        frame.getBtnThem().addActionListener(e -> addStudent());
     }
 
     private void onTableRowClick() {
@@ -47,7 +47,8 @@ public class StudentManager {
             frame.getTxtMaSV().setText((String) tableModel.getValueAt(selectedRow, 0));
             frame.getTxtHoTen().setText((String) tableModel.getValueAt(selectedRow, 1));
             frame.getTxtClassName().setText((String) tableModel.getValueAt(selectedRow, 2));
-            frame.getTxtGPA().setText((String) tableModel.getValueAt(selectedRow, 3));
+            Object gpaValue = tableModel.getValueAt(selectedRow, 3);
+            frame.getTxtGPA().setText(gpaValue != null ? gpaValue.toString() : "");
         }
     }
 
