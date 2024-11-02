@@ -17,6 +17,7 @@ public class StudentManager {
     private Connection connection;
     private StudentDao studentDao;
     private Frame frame;
+    private String selectedId;
     private DefaultTableModel tableModel;
 
     public StudentManager() {
@@ -45,6 +46,7 @@ public class StudentManager {
 
         if (selectedRow >= 0) {
             frame.getTxtMaSV().setText((String) tableModel.getValueAt(selectedRow, 0));
+            selectedId = (String) tableModel.getValueAt(selectedRow, 0);
             frame.getTxtHoTen().setText((String) tableModel.getValueAt(selectedRow, 1));
             frame.getTxtClassName().setText((String) tableModel.getValueAt(selectedRow, 2));
             Object gpaValue = tableModel.getValueAt(selectedRow, 3);
@@ -136,10 +138,8 @@ public class StudentManager {
             return;
         }
 
-        // Xoá sinh viên cũ, nếu tồn tại
-        studentDao.delete(id);
+        studentDao.delete(selectedId);
 
-        // Thêm sinh viên mới với thông tin đã cập nhật
         Student updatedStudent = new Student(id, name, className, gpa);
         if (studentDao.create(updatedStudent)) {
             JOptionPane.showMessageDialog(frame, "Cập nhật sinh viên thành công!");
