@@ -8,4 +8,5 @@ public interface StudentDao {
     List<Student> getAll();
     boolean create(Student student);
     void delete(String ma_sv);
+
 }

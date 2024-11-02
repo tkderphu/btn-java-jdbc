@@ -1,5 +1,4 @@
 package com.example.exercise_1;
-
 import com.example.common.JdbcConnection;
 
 import java.sql.Connection;
